@@ -2,10 +2,24 @@
   <td class="micropost">
     <span class="content"><%= micropost.content %></span>
 	<br />
-    <span class="image"><img style="width:150px;height:250px;" src=<%= micropost.poster_src %> /></span>
-	<span class="download_link"><a href=<%= micropost.magnet_link %>>Download</a></span>
 	<span class="timestamp">
       Posted <%= time_ago_in_words(micropost.created_at) %> ago.
     </span>
+	<br />
+	<ol> 
+		<% @data = JSON.parse(micropost.data_json) %>
+		<li class="stbody">
+		<div class="stimg">
+			<img style="width:125px;height:200px;" src=<%= micropost.poster_src %> />
+		</div> 
+		<div class="sttext">
+			<a href=<%= micropost.magnet_link %>><%= @data['Title'] %></a>
+			<br />
+			<%= @data['Plot'] %>
+			<br />
+			<div class="sttime">Year: <%= @data['Year'] %> - Genre: <%= @data['Genre'] %> - Rating: <%= @data['imdbRating'] %></div> 
+		</div> 
+		</li>
+	</ol>
   </td>
 </tr>

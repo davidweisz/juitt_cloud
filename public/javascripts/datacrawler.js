@@ -48,8 +48,8 @@ function loadContent(url) {
 		} 
 } 
 
-function processPage(url) {
-	// TODO: process the page beign loaded
+function processPage(url) {	
+	$('#data_div').show();
 	
 	// find the magnetic link
 	$('#hidden_div').find('a[href^="magnet:"]').each(function() {
@@ -86,6 +86,7 @@ function processPage(url) {
 		}
 		
 	} else { // No imdb link on the website
+		$('#choose_picture_div').show();
 		
 		// Search for posters in the website
 		$('#hidden_div').find('img').each(function() {
@@ -208,4 +209,7 @@ $(document).ready(function(){
         	loadContent(url)
         }, 100);
 	});
+	
+	$('#data_div').hide();
+	$('#choose_picture_div').hide();
 });
