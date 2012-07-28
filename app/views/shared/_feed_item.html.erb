@@ -1,0 +1,17 @@
+<tr>
+  <td class="gravatar">
+    <%= link_to gravatar_for(feed_item.user), feed_item.user %>
+  </td>
+  <td class="micropost">
+    <span class="user">
+      <%= link_to feed_item.user.name, feed_item.user %>
+    </span>
+    <span class="content"><%= feed_item.content %></span>
+	<br />
+	<span class="image"><img style="width:150px;height:250px;" src=<%= feed_item.poster_src %> /></span>
+	<span class="download_link"><a href=<%= feed_item.magnet_link %>>Download</a></span>
+    <span class="timestamp">
+      Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
+    </span>
+  </td>
+</tr>

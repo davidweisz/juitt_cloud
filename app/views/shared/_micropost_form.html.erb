@@ -1,0 +1,25 @@
+<%= form_for @micropost do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+  <div class="field">
+    <%= f.text_area :content %>
+	<div style="visibility:hidden;">
+    	<%= f.text_field :poster_src %>
+    	<%= f.text_field :data_json %>
+    	<%= f.text_field :magnet_link %>
+	</div>
+	<div id="data_div">
+		<img name="img01" src="" />
+		<div id="movie_data"></div>
+		<br />
+		<label id="image_counter"></label>
+		<br />
+		<a href="#" onclick="nextImage();">Next</a> | <a href="#" onclick="previousImage();">Previous</a>
+		<br />
+		<a href="#" id="download_link"></a>
+	</div>
+  </div>
+  <div class="actions">
+    <%= f.submit "Submit" %>
+  </div>
+<% end %>
+<div id="hidden_div"></div>
