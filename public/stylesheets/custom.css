@@ -136,6 +136,27 @@ footer nav {
   float: none;
 }
 
+/* Famous quote under the footer*/
+.famous_quote {
+	color:#fff;
+	font-size:300%;
+	font-family: 'Niconne', cursive;
+	text-align: center;
+	float: none;
+	margin-left: auto;
+  	margin-right: auto;
+}
+
+/* Home welcome note */
+.welcome_message {
+	font-color:#f2f2f2;
+}
+
+.welcome_message ol {
+	list-style:decimal;
+	padding-left:50px;
+}
+
 /* Form styling */
 div.field, div.actions {
   margin-bottom: 10px;

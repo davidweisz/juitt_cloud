@@ -18,4 +18,12 @@ class PagesController < ApplicationController
   def help
     @title = "Help"
   end
+  
+  def terms
+    @title = "Terms"
+  end
+  
+  def privacy
+    @title = "Privacy"
+  end
 end

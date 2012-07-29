@@ -16,9 +16,17 @@
 <% end %>
 
 <% if !signed_in? %>
-<h1>Juitt</h1>
-<p>
-	Post the links to the movies you download and let your friends enjoy!
-</p>
+<div class="welcome_message">
+	<h1>Welcome to Juitt.</h1>
+	<p >
+		Get the best movies according to your taste from the people you believe in.
+		<h4>How it works</h4>
+		<ol>
+			<li>Create your free account</li>
+			<li>Follow the people that have your same taste in movies</li>
+			<li>When you download a good movie, you can post the link on Juitt, and let your followers enjoy too</li>
+		</ol>
+	</p>
+</div>
 <%= link_to "Sign up now!", signup_path, :class => "signup_button round" %>
 <% end %>
