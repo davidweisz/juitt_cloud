@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  #protect_from_forgery
+  protect_from_forgery
   include SessionsHelper
   
   after_filter :set_access_control_headers

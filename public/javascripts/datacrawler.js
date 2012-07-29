@@ -79,14 +79,11 @@ function processPage(url) {
 			images_array.push(movie_json.Poster);
 			image_counter += 1;
 			
-			// Add to input form for db post
+			// Add data json to input field in the form for db post
 			document.getElementById('micropost_data_json').value = JSON.stringify(movie_json);
-			document.getElementById('micropost_poster_src').value = movie_json.Poster;
-			
 		}
 		
 	} else { // No imdb link on the website
-		$('#choose_picture_div').show();
 		
 		// Search for posters in the website
 		$('#hidden_div').find('img').each(function() {
@@ -96,11 +93,14 @@ function processPage(url) {
 			}
 		});
 		
-		// TODO: save the correct image on post
+		// Give the user the ability to show the image to post
+		if (image_counter > 1) {
+			$('#choose_picture_div').show();			
+		}
 	}
 	
 	// Add image to document
-	updateImage();
+	updateImageAndSave();
 	updateCounter();
 }
 
@@ -144,7 +144,7 @@ function processIMDB(imdb_index) {
 function previousImage() {
 	if (image_counter > 1 && current_image > 0 ) {
 		current_image -= 1;
-		updateImage();
+		updateImageAndSave();
 		updateCounter();		
 	}
 }
@@ -152,14 +152,17 @@ function previousImage() {
 function nextImage() {
 	if (image_counter > 0 && current_image < (image_counter - 1)) {
 		current_image += 1;
-		updateImage();
+		updateImageAndSave();
 		updateCounter();
 	}
 }
 
-function updateImage() {
+function updateImageAndSave() {
 	document.img01.src = images_array[current_image];
-	document.img01.style.width = "150px";
+	document.img01.style.width = "125px";
+
+	// Save the selected image on the image filed for form post to db
+	document.getElementById('micropost_poster_src').value = images_array[current_image];
 } 
 
 function updateCounter() {
@@ -187,9 +190,10 @@ function addMovieData(json) {
 	// 	"Response":"True"
 	// }
 	document.getElementById("movie_data").innerHTML = 
-		"Title: <a href='" + magnet_link + "'>" + json.Title + "</a><br \>" +
-		"Year: " + json.Year + "<br \>" + 
-		"Genre: " + json.Genre + "<br \>" + 
+		"<a href='" + magnet_link + "'>" + json.Title + "</a><br \>" +
+		json.Plot + "<br \>" + 
+		"Year: " + json.Year + " - " + 
+		"Genre: " + json.Genre + " - " + 
 		"Rating: " + json.imdbRating + "<br \>";
 	
 }

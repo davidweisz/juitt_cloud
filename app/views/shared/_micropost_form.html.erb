@@ -1,5 +1,5 @@
 <%= form_for @micropost do |f| %>
-  <%= render 'shared/error_messages', :object => f.object %>
+  <%#= render 'shared/error_messages', :object => f.object %>
   <div class="field">
     <%= f.text_area :content %>
 	<div style="visibility:hidden;">
@@ -7,21 +7,31 @@
     	<%= f.text_field :data_json %>
     	<%= f.text_field :magnet_link %>
 	</div>
-	<div id="data_div">
-		<img name="img01" src="" />
-		<div id="movie_data"></div>
-		<br />
-		<div id="choose_picture_div">
-			<label id="image_counter"></label>
-			<br />
-			<a href="#" onclick="nextImage();">Next</a> | <a href="#" onclick="previousImage();">Previous</a>
-			<br />
-			<a href="#" id="download_link"></a>
-		</div>
-	</div>
-  </div>
-  <div class="actions">
+	<div class="actions">
     <%= f.submit "Submit" %>
+  	</div>
+	<div id="data_div">
+		<ol> 
+			<li class="stbody">
+				<div class="stimg">
+					<img name="img01" src="" />
+				</div> 
+				<div class="sttext">
+					<div id="movie_data"></div>
+					<br />
+					<div class="sttime">
+						<div id="choose_picture_div">
+							<label id="image_counter"></label>
+							<a href="#" onclick="nextImage();">Next</a> | <a href="#" onclick="previousImage();">Previous</a>
+							<a href="#" id="download_link"></a>
+						</div>
+					</div> 
+				</div> 
+			</li>
+		</ol>
+	</div>
   </div>
 <% end %>
 <div id="hidden_div"></div>
+<br />
+<br />

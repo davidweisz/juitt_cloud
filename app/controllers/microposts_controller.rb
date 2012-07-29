@@ -7,7 +7,8 @@ class MicropostsController < ApplicationController
       flash[:success] = "Your Juitt was succesfully posted!"
       redirect_to root_path
     else
-      @feed_items = []
+      flash[:error] = "Error trying to fetch data from link, please try another one!"
+      @feed_items = current_user.feed.paginate(:page => params[:page])
       render 'pages/home'
     end
   end
