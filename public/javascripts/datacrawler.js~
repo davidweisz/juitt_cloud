@@ -55,7 +55,7 @@ function parseContent(data) {
 		var hidden_div = document.getElementById("hidden_div");
 		hidden_div.style.visibility = "none";
 		hidden_div.innerHTML = data.body;
-		
+		console.log(data.body);
 		// We now process the page
 		processPage();
 				
