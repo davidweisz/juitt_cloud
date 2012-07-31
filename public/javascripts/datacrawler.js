@@ -65,6 +65,16 @@ function parseContent(data) {
 	}
 }
 
+// This function checks if a string is of type json
+function isJsonString(str) {
+	try {
+		JSON.parse(str);
+	} catch (e) {
+		return false;
+	}
+	return true;
+}
+
 function processPage() {	
 	$('#data_div').show();
 	
@@ -215,6 +225,10 @@ function addMovieData(json) {
 	
 }
 
+function showLoaderImage() {
+	document.img01.src = "images/ajax-loader.gif";	
+}
+
 $(document).ready(function(){
 //	$("input").live("click",);
 	// $("form").submit( function () {
@@ -224,11 +238,14 @@ $(document).ready(function(){
 	// 	return false;
 	// });
 	$('textarea').bind('paste', function () {
+		
+		showLoaderImage();
+
 		var el = $(this);
-        setTimeout(function() {
-            var url = $(el).val();
-        	loadContent(url)
-        }, 100);
+        	setTimeout(function() {
+            		var url = $(el).val();
+        		loadContent(url)
+        	}, 100);
 	});
 	
 	$('#data_div').hide();
