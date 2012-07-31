@@ -24679,3 +24679,450 @@ Processing by PagesController#home as HTML
   Rendered layouts/_header.html.erb (3.3ms)
   Rendered layouts/_footer.html.erb (1.5ms)
 Completed 200 OK in 20ms (Views: 18.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-29 23:37:42 +0300
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+  Rendered pages/home.html.erb within layouts/application (206.9ms)
+  Rendered layouts/_stylesheets.html.erb (29.9ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT 1[0m
+  Rendered layouts/_header.html.erb (32.6ms)
+  Rendered layouts/_footer.html.erb (3.2ms)
+Completed 200 OK in 1251ms (Views: 774.0ms | ActiveRecord: 81.2ms)
+  [1m[36m (632.5ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (480.7ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)
+  [1m[36m (27.9ms)[0m  [1mSELECT `schema_migrations`.`version` FROM `schema_migrations` [0m
+Migrating to CreateUsers (20120205132356)
+  [1m[35m (865.4ms)[0m  CREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `email` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (83.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120205132356')[0m
+Migrating to AddEmailUniquenessIndex (20120205141054)
+  [1m[35m (676.3ms)[0m  CREATE UNIQUE INDEX `index_users_on_email` ON `users` (`email`)
+  [1m[36m (57.3ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120205141054')[0m
+Migrating to AddPasswordToUsers (20120205144249)
+  [1m[35m (501.8ms)[0m  ALTER TABLE `users` ADD `encrypted_password` varchar(255)
+  [1m[36m (32.5ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120205144249')[0m
+Migrating to AddSaltToUsers (20120205145710)
+  [1m[35m (387.3ms)[0m  ALTER TABLE `users` ADD `salt` varchar(255)
+  [1m[36m (21.6ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120205145710')[0m
+Migrating to AddAdminToUsers (20120206114205)
+  [1m[35m (277.7ms)[0m  ALTER TABLE `users` ADD `admin` tinyint(1) DEFAULT 0
+  [1m[36m (32.5ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120206114205')[0m
+Migrating to CreateMicroposts (20120206122307)
+  [1m[35m (162.2ms)[0m  CREATE TABLE `microposts` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `content` varchar(255), `user_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (332.0ms)[0m  [1mCREATE INDEX `index_microposts_on_user_id_and_created_at` ON `microposts` (`user_id`, `created_at`)[0m
+  [1m[35m (31.5ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20120206122307')
+Migrating to CreateRelationships (20120210193145)
+  [1m[36m (96.1ms)[0m  [1mCREATE TABLE `relationships` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `follower_id` int(11), `followed_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (299.8ms)[0m  CREATE INDEX `index_relationships_on_follower_id` ON `relationships` (`follower_id`)
+  [1m[36m (267.0ms)[0m  [1mCREATE INDEX `index_relationships_on_followed_id` ON `relationships` (`followed_id`)[0m
+  [1m[35m (282.6ms)[0m  CREATE UNIQUE INDEX `index_relationships_on_follower_id_and_followed_id` ON `relationships` (`follower_id`, `followed_id`)
+  [1m[36m (61.8ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120210193145')[0m
+Migrating to AddDetailsToMicroposts (20120728152213)
+  [1m[35m (198.9ms)[0m  ALTER TABLE `microposts` ADD `poster_src` varchar(255)
+  [1m[36m (363.4ms)[0m  [1mALTER TABLE `microposts` ADD `data_json` varchar(255)[0m
+  [1m[35m (275.5ms)[0m  ALTER TABLE `microposts` ADD `magnet_link` varchar(255)
+  [1m[36m (21.8ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120728152213')[0m
+  [1m[35m (0.8ms)[0m  SELECT `schema_migrations`.`version` FROM `schema_migrations` 
+
+
+Started GET "/signup" for 127.0.0.1 at 2012-07-30 00:21:52 +0300
+Processing by UsersController#new as HTML
+  Rendered shared/_error_messages.html.erb (1.6ms)
+  Rendered users/new.html.erb within layouts/application (311.4ms)
+  Rendered layouts/_stylesheets.html.erb (23.0ms)
+  [1m[36mUser Load (42.9ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  Rendered layouts/_header.html.erb (89.4ms)
+  Rendered layouts/_footer.html.erb (4.0ms)
+Completed 200 OK in 895ms (Views: 680.8ms | ActiveRecord: 165.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-30 00:24:11 +0300
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (71.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  Rendered pages/home.html.erb within layouts/application (26.2ms)
+  Rendered layouts/_stylesheets.html.erb (3.5ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  Rendered layouts/_header.html.erb (8.1ms)
+  Rendered layouts/_footer.html.erb (2.4ms)
+Completed 200 OK in 219ms (Views: 144.2ms | ActiveRecord: 71.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-30 23:44:21 +0300
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (359.6ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered shared/_micropost_form.html.erb (6.8ms)
+  [1m[35m (248.2ms)[0m  SELECT COUNT(*) FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1)
+  [1m[36mMicropost Load (1.0ms)[0m  [1mSELECT `microposts`.* FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY microposts.created_at DESC LIMIT 30 OFFSET 0[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered shared/_feed_item.html.erb (1060.1ms)
+  Rendered shared/_feed.html.erb (1350.0ms)
+  Rendered pages/home.html.erb within layouts/application (1597.6ms)
+Completed 500 Internal Server Error in 3244ms
+
+ActionView::Template::Error (756: unexpected token at '{"Title":"American Reunion","Year":"2012","Rated":"R","Released":"06 Apr 2012","Runtime":"1 h 53 min","Genre":"Comedy","Director":"Jon Hurwitz, Hayden Schlossberg","Writer":"Adam Herz, Jon Hurwitz","Actors":"Jason Biggs, Alyson Hannigan, Seann William Sco'):
+    13: 	<br />
+    14: 	<ol> 
+    15: 		<% @data = {"Title"=>"Download", "Plot"=>"No details available", "Year" => "-", "Genre"=>"-","imdbRating"=>"0"} %>
+    16: 		<% @data = ActiveSupport::JSON.decode(feed_item.data_json) unless feed_item.data_json.nil? || feed_item.data_json.empty? %>
+    17: 		<li class="stbody">
+    18: 		<div class="stimg">
+    19: 			<!--<img style="width:125px;height:185px;" src=\'<%= feed_item.poster_src  %>\' />-->
+  app/views/shared/_feed_item.html.erb:16:in `_app_views_shared__feed_item_html_erb__226092804_86884730'
+  app/views/shared/_feed.html.erb:3:in `_app_views_shared__feed_html_erb__491247417_87764630'
+  app/views/pages/home.html.erb:8:in `_app_views_pages_home_html_erb___864790479_90706420'
+
+
+  Rendered /home/david/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (13.9ms)
+  Rendered /home/david/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.2ms)
+  Rendered /home/david/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (57.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-30 23:56:11 +0300
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (40.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered shared/_micropost_form.html.erb (12.2ms)
+  [1m[35m (42.5ms)[0m  SELECT COUNT(*) FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1)
+  Rendered shared/_feed.html.erb (46.8ms)
+  [1m[36m (2.1ms)[0m  [1mSELECT COUNT(*) FROM `microposts` WHERE `microposts`.`user_id` = 1[0m
+  Rendered shared/_user_info.html.erb (162.3ms)
+  [1m[35m (40.5ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`followed_id` WHERE `relationships`.`follower_id` = 1
+  [1m[36m (2.4ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`follower_id` WHERE `relationships`.`followed_id` = 1[0m
+  Rendered shared/_stats.html.erb (319.2ms)
+  Rendered pages/home.html.erb within layouts/application (734.3ms)
+  Rendered layouts/_stylesheets.html.erb (30.5ms)
+  Rendered layouts/_header.html.erb (52.4ms)
+  Rendered layouts/_footer.html.erb (3.2ms)
+Completed 200 OK in 1592ms (Views: 1090.2ms | ActiveRecord: 166.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-31 00:02:02 +0300
+Processing by PagesController#home as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered shared/_micropost_form.html.erb (119.1ms)
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1)[0m
+  Rendered shared/_feed.html.erb (44.1ms)
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `microposts` WHERE `microposts`.`user_id` = 1
+  Rendered shared/_user_info.html.erb (71.3ms)
+  [1m[36m (5.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`followed_id` WHERE `relationships`.`follower_id` = 1[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`follower_id` WHERE `relationships`.`followed_id` = 1
+  Rendered shared/_stats.html.erb (41.0ms)
+  Rendered pages/home.html.erb within layouts/application (363.6ms)
+  Rendered layouts/_stylesheets.html.erb (90.9ms)
+  Rendered layouts/_header.html.erb (67.5ms)
+  Rendered layouts/_footer.html.erb (1.9ms)
+Completed 200 OK in 1387ms (Views: 904.0ms | ActiveRecord: 6.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-31 00:03:40 +0300
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (13.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered shared/_micropost_form.html.erb (84.6ms)
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1)
+  Rendered shared/_feed.html.erb (2.5ms)
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `microposts` WHERE `microposts`.`user_id` = 1[0m
+  Rendered shared/_user_info.html.erb (44.8ms)
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`followed_id` WHERE `relationships`.`follower_id` = 1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`follower_id` WHERE `relationships`.`followed_id` = 1[0m
+  Rendered shared/_stats.html.erb (34.0ms)
+  Rendered pages/home.html.erb within layouts/application (226.5ms)
+  Rendered layouts/_stylesheets.html.erb (3.7ms)
+  Rendered layouts/_header.html.erb (39.6ms)
+  Rendered layouts/_footer.html.erb (8.3ms)
+Completed 200 OK in 442ms (Views: 404.9ms | ActiveRecord: 14.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-31 00:07:02 +0300
+Processing by PagesController#home as HTML
+  [1m[35mUser Load (7.8ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered shared/_micropost_form.html.erb (5010.6ms)
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1)[0m
+  Rendered shared/_feed.html.erb (2.2ms)
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `microposts` WHERE `microposts`.`user_id` = 1
+  Rendered shared/_user_info.html.erb (5.4ms)
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`followed_id` WHERE `relationships`.`follower_id` = 1[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`follower_id` WHERE `relationships`.`followed_id` = 1
+  Rendered shared/_stats.html.erb (11.5ms)
+  Rendered pages/home.html.erb within layouts/application (5063.0ms)
+  Rendered layouts/_stylesheets.html.erb (4.2ms)
+  Rendered layouts/_header.html.erb (4.0ms)
+  Rendered layouts/_footer.html.erb (1.7ms)
+Completed 200 OK in 5395ms (Views: 5197.5ms | ActiveRecord: 8.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-31 00:08:52 +0300
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (5.8ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered shared/_micropost_form.html.erb (11.3ms)
+  [1m[35m (4.5ms)[0m  SELECT COUNT(*) FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1)
+  Rendered shared/_feed.html.erb (6.5ms)
+  [1m[36m (5.6ms)[0m  [1mSELECT COUNT(*) FROM `microposts` WHERE `microposts`.`user_id` = 1[0m
+  Rendered shared/_user_info.html.erb (21.5ms)
+  [1m[35m (4.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`followed_id` WHERE `relationships`.`follower_id` = 1
+  [1m[36m (5.5ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`follower_id` WHERE `relationships`.`followed_id` = 1[0m
+  Rendered shared/_stats.html.erb (16.5ms)
+  Rendered pages/home.html.erb within layouts/application (61.1ms)
+  Rendered layouts/_stylesheets.html.erb (18.1ms)
+  Rendered layouts/_header.html.erb (4.3ms)
+  Rendered layouts/_footer.html.erb (7.6ms)
+Completed 200 OK in 135ms (Views: 98.6ms | ActiveRecord: 25.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-31 00:08:58 +0300
+Processing by PagesController#home as HTML
+  [1m[35mUser Load (11.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered shared/_micropost_form.html.erb (14.0ms)
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1)[0m
+  Rendered shared/_feed.html.erb (2.2ms)
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `microposts` WHERE `microposts`.`user_id` = 1
+  Rendered shared/_user_info.html.erb (8.2ms)
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`followed_id` WHERE `relationships`.`follower_id` = 1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`follower_id` WHERE `relationships`.`followed_id` = 1
+  Rendered shared/_stats.html.erb (7.7ms)
+  Rendered pages/home.html.erb within layouts/application (37.3ms)
+  Rendered layouts/_stylesheets.html.erb (8.3ms)
+  Rendered layouts/_header.html.erb (3.4ms)
+  Rendered layouts/_footer.html.erb (2.6ms)
+Completed 200 OK in 77ms (Views: 61.5ms | ActiveRecord: 12.4ms)
+
+
+Started POST "/microposts" for 127.0.0.1 at 2012-07-31 00:09:54 +0300
+Processing by MicropostsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"JiCuVuNeS6YGpkd/mCHgPsQVsPhoIRvAEfhWGEx87j8=", "micropost"=>{"content"=>"http://thepiratebay.se/torrent/7393596/American_Reunion_UNRATED_DVDRip_XviD-COCAIN", "poster_src"=>"http://ia.media-imdb.com/images/M/MV5BMTY4MTEyMzU1N15BMl5BanBnXkFtZTcwNDQ0NTc1Nw@@._V1_SX640.jpg", "data_json"=>"{\"Title\":\"American Reunion\",\"Year\":\"2012\",\"Rated\":\"R\",\"Released\":\"06 Apr 2012\",\"Runtime\":\"1 h 53 min\",\"Genre\":\"Comedy\",\"Director\":\"Jon Hurwitz, Hayden Schlossberg\",\"Writer\":\"Adam Herz, Jon Hurwitz\",\"Actors\":\"Jason Biggs, Alyson Hannigan, Seann William Scott, Chris Klein\",\"Plot\":\"Jim, Michelle, Stifler, and their friends reunite in East Great Falls, Michigan for their high school reunion.\",\"Poster\":\"http://ia.media-imdb.com/images/M/MV5BMTY4MTEyMzU1N15BMl5BanBnXkFtZTcwNDQ0NTc1Nw@@._V1_SX640.jpg\",\"imdbRating\":\"7.3\",\"imdbVotes\":\"35,400\",\"imdbID\":\"tt1605630\",\"Response\":\"True\"}", "magnet_link"=>"magnet:?xt=urn:btih:871db705b11ca07bd86203f3b772f52ef53905c4&dn=American+Reunion+UNRATED+DVDRip+XviD-COCAIN&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80"}, "commit"=>"Submit"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (43.0ms)[0m  BEGIN
+  [1m[36mSQL (505.2ms)[0m  [1mINSERT INTO `microposts` (`content`, `created_at`, `data_json`, `magnet_link`, `poster_src`, `updated_at`, `user_id`) VALUES ('http://thepiratebay.se/torrent/7393596/American_Reunion_UNRATED_DVDRip_XviD-COCAIN', '2012-07-30 21:09:55', '{\"Title\":\"American Reunion\",\"Year\":\"2012\",\"Rated\":\"R\",\"Released\":\"06 Apr 2012\",\"Runtime\":\"1 h 53 min\",\"Genre\":\"Comedy\",\"Director\":\"Jon Hurwitz, Hayden Schlossberg\",\"Writer\":\"Adam Herz, Jon Hurwitz\",\"Actors\":\"Jason Biggs, Alyson Hannigan, Seann William Scott, Chris Klein\",\"Plot\":\"Jim, Michelle, Stifler, and their friends reunite in East Great Falls, Michigan for their high school reunion.\",\"Poster\":\"http://ia.media-imdb.com/images/M/MV5BMTY4MTEyMzU1N15BMl5BanBnXkFtZTcwNDQ0NTc1Nw@@._V1_SX640.jpg\",\"imdbRating\":\"7.3\",\"imdbVotes\":\"35,400\",\"imdbID\":\"tt1605630\",\"Response\":\"True\"}', 'magnet:?xt=urn:btih:871db705b11ca07bd86203f3b772f52ef53905c4&dn=American+Reunion+UNRATED+DVDRip+XviD-COCAIN&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80', 'http://ia.media-imdb.com/images/M/MV5BMTY4MTEyMzU1N15BMl5BanBnXkFtZTcwNDQ0NTc1Nw@@._V1_SX640.jpg', '2012-07-30 21:09:55', 1)[0m
+  [1m[35m (105.9ms)[0m  COMMIT
+Redirected to http://localhost:3000/
+Completed 302 Found in 1029ms (ActiveRecord: 654.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-31 00:09:56 +0300
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered shared/_micropost_form.html.erb (3.2ms)
+  [1m[35m (512.8ms)[0m  SELECT COUNT(*) FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1)
+  [1m[36mMicropost Load (44.4ms)[0m  [1mSELECT `microposts`.* FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY microposts.created_at DESC LIMIT 30 OFFSET 0[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered shared/_feed_item.html.erb (482.7ms)
+  Rendered shared/_feed.html.erb (1049.7ms)
+  Rendered pages/home.html.erb within layouts/application (1055.1ms)
+Completed 500 Internal Server Error in 1063ms
+
+ActionView::Template::Error (756: unexpected token at '{"Title":"American Reunion","Year":"2012","Rated":"R","Released":"06 Apr 2012","Runtime":"1 h 53 min","Genre":"Comedy","Director":"Jon Hurwitz, Hayden Schlossberg","Writer":"Adam Herz, Jon Hurwitz","Actors":"Jason Biggs, Alyson Hannigan, Seann William Sco'):
+    13: 	<br />
+    14: 	<ol> 
+    15: 		<% @data = {"Title"=>"Download", "Plot"=>"No details available", "Year" => "-", "Genre"=>"-","imdbRating"=>"0"} %>
+    16: 		<% @data = ActiveSupport::JSON.decode(feed_item.data_json) unless feed_item.data_json.nil? || feed_item.data_json.empty? %>
+    17: 		<li class="stbody">
+    18: 		<div class="stimg">
+    19: 			<!--<img style="width:125px;height:185px;" src=\'<%= feed_item.poster_src  %>\' />-->
+  app/views/shared/_feed_item.html.erb:16:in `_app_views_shared__feed_item_html_erb__474846410__638064638'
+  app/views/shared/_feed.html.erb:3:in `_app_views_shared__feed_html_erb__817033228_85557210'
+  app/views/pages/home.html.erb:8:in `_app_views_pages_home_html_erb___1029383684_85557200'
+
+
+  Rendered /home/david/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (16.8ms)
+  Rendered /home/david/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (13.5ms)
+  Rendered /home/david/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (49.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-31 00:28:51 +0300
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered shared/_micropost_form.html.erb (8.9ms)
+  [1m[35m (16.5ms)[0m  SELECT COUNT(*) FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1)
+  Rendered shared/_feed.html.erb (21.6ms)
+  [1m[36m (17.6ms)[0m  [1mSELECT COUNT(*) FROM `microposts` WHERE `microposts`.`user_id` = 1[0m
+  Rendered shared/_user_info.html.erb (169.3ms)
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`followed_id` WHERE `relationships`.`follower_id` = 1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`follower_id` WHERE `relationships`.`followed_id` = 1[0m
+  Rendered shared/_stats.html.erb (272.2ms)
+  Rendered pages/home.html.erb within layouts/application (632.0ms)
+  Rendered layouts/_stylesheets.html.erb (7.8ms)
+  Rendered layouts/_header.html.erb (12.6ms)
+  Rendered layouts/_footer.html.erb (7.2ms)
+Completed 200 OK in 1117ms (Views: 809.4ms | ActiveRecord: 46.0ms)
+
+
+Started POST "/microposts" for 127.0.0.1 at 2012-07-31 00:29:08 +0300
+Processing by MicropostsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"JiCuVuNeS6YGpkd/mCHgPsQVsPhoIRvAEfhWGEx87j8=", "micropost"=>{"content"=>"http://thepiratebay.se/torrent/7393596/American_Reunion_UNRATED_DVDRip_XviD-COCAIN", "poster_src"=>"http://ia.media-imdb.com/images/M/MV5BMTY4MTEyMzU1N15BMl5BanBnXkFtZTcwNDQ0NTc1Nw@@._V1_SX640.jpg", "data_json"=>"{\"Title\":\"American Reunion\",\"Year\":\"2012\",\"Rated\":\"R\",\"Released\":\"06 Apr 2012\",\"Runtime\":\"1 h 53 min\",\"Genre\":\"Comedy\",\"Director\":\"Jon Hurwitz, Hayden Schlossberg\",\"Writer\":\"Adam Herz, Jon Hurwitz\",\"Actors\":\"Jason Biggs, Alyson Hannigan, Seann William Scott, Chris Klein\",\"Plot\":\"Jim, Michelle, Stifler, and their friends reunite in East Great Falls, Michigan for their high school reunion.\",\"Poster\":\"http://ia.media-imdb.com/images/M/MV5BMTY4MTEyMzU1N15BMl5BanBnXkFtZTcwNDQ0NTc1Nw@@._V1_SX640.jpg\",\"imdbRating\":\"7.3\",\"imdbVotes\":\"35,400\",\"imdbID\":\"tt1605630\",\"Response\":\"True\"}", "magnet_link"=>"magnet:?xt=urn:btih:871db705b11ca07bd86203f3b772f52ef53905c4&dn=American+Reunion+UNRATED+DVDRip+XviD-COCAIN&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80"}, "commit"=>"Submit"}
+  [1m[35mUser Load (1.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (60.2ms)[0m  INSERT INTO `microposts` (`content`, `created_at`, `data_json`, `magnet_link`, `poster_src`, `updated_at`, `user_id`) VALUES ('http://thepiratebay.se/torrent/7393596/American_Reunion_UNRATED_DVDRip_XviD-COCAIN', '2012-07-30 21:29:08', '{\"Title\":\"American Reunion\",\"Year\":\"2012\",\"Rated\":\"R\",\"Released\":\"06 Apr 2012\",\"Runtime\":\"1 h 53 min\",\"Genre\":\"Comedy\",\"Director\":\"Jon Hurwitz, Hayden Schlossberg\",\"Writer\":\"Adam Herz, Jon Hurwitz\",\"Actors\":\"Jason Biggs, Alyson Hannigan, Seann William Scott, Chris Klein\",\"Plot\":\"Jim, Michelle, Stifler, and their friends reunite in East Great Falls, Michigan for their high school reunion.\",\"Poster\":\"http://ia.media-imdb.com/images/M/MV5BMTY4MTEyMzU1N15BMl5BanBnXkFtZTcwNDQ0NTc1Nw@@._V1_SX640.jpg\",\"imdbRating\":\"7.3\",\"imdbVotes\":\"35,400\",\"imdbID\":\"tt1605630\",\"Response\":\"True\"}', 'magnet:?xt=urn:btih:871db705b11ca07bd86203f3b772f52ef53905c4&dn=American+Reunion+UNRATED+DVDRip+XviD-COCAIN&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80', 'http://ia.media-imdb.com/images/M/MV5BMTY4MTEyMzU1N15BMl5BanBnXkFtZTcwNDQ0NTc1Nw@@._V1_SX640.jpg', '2012-07-30 21:29:08', 1)
+  [1m[36m (47.3ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 202ms (ActiveRecord: 109.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-31 00:29:09 +0300
+Processing by PagesController#home as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered shared/_micropost_form.html.erb (8.3ms)
+  [1m[36m (33.7ms)[0m  [1mSELECT COUNT(*) FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1)[0m
+  [1m[35mMicropost Load (1.7ms)[0m  SELECT `microposts`.* FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY microposts.created_at DESC LIMIT 30 OFFSET 0
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered shared/_feed_item.html.erb (256.1ms)
+  Rendered shared/_feed.html.erb (337.7ms)
+  [1m[35m (1.2ms)[0m  SELECT COUNT(*) FROM `microposts` WHERE `microposts`.`user_id` = 1
+  Rendered shared/_user_info.html.erb (4.8ms)
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`followed_id` WHERE `relationships`.`follower_id` = 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`follower_id` WHERE `relationships`.`followed_id` = 1
+  Rendered shared/_stats.html.erb (8.6ms)
+  Rendered pages/home.html.erb within layouts/application (364.8ms)
+  Rendered layouts/_stylesheets.html.erb (3.5ms)
+  Rendered layouts/_header.html.erb (4.4ms)
+  Rendered layouts/_footer.html.erb (1.7ms)
+Completed 200 OK in 400ms (Views: 357.3ms | ActiveRecord: 37.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-31 00:29:28 +0300
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (5.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered shared/_micropost_form.html.erb (3.1ms)
+  [1m[35m (9.7ms)[0m  SELECT COUNT(*) FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1)
+  [1m[36mMicropost Load (0.6ms)[0m  [1mSELECT `microposts`.* FROM `microposts` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY microposts.created_at DESC LIMIT 30 OFFSET 0[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered shared/_feed_item.html.erb (5.7ms)
+  Rendered shared/_feed.html.erb (28.9ms)
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `microposts` WHERE `microposts`.`user_id` = 1[0m
+  Rendered shared/_user_info.html.erb (2.8ms)
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`followed_id` WHERE `relationships`.`follower_id` = 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `relationships` ON `users`.`id` = `relationships`.`follower_id` WHERE `relationships`.`followed_id` = 1[0m
+  Rendered shared/_stats.html.erb (12.3ms)
+  Rendered pages/home.html.erb within layouts/application (54.2ms)
+  Rendered layouts/_stylesheets.html.erb (3.5ms)
+  Rendered layouts/_header.html.erb (3.1ms)
+  Rendered layouts/_footer.html.erb (2.7ms)
+Completed 200 OK in 93ms (Views: 68.1ms | ActiveRecord: 16.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-31 20:06:35 +0300
+
+Mysql2::Error (Access denied for user 'root'@'localhost' (using password: YES)):
+  mysql2 (0.3.11) lib/mysql2/client.rb:44:in `connect'
+  mysql2 (0.3.11) lib/mysql2/client.rb:44:in `initialize'
+  activerecord (3.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:16:in `new'
+  activerecord (3.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:16:in `mysql2_connection'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:277:in `new_connection'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:287:in `checkout_new_connection'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:235:in `block (2 levels) in checkout'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:230:in `loop'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:230:in `block in checkout'
+  /home/david/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/monitor.rb:211:in `mon_synchronize'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:229:in `checkout'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:95:in `connection'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:374:in `retrieve_connection'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_specification.rb:168:in `retrieve_connection'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_specification.rb:142:in `connection'
+  activerecord (3.2.1) lib/active_record/query_cache.rb:67:in `rescue in call'
+  activerecord (3.2.1) lib/active_record/query_cache.rb:61:in `call'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:443:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+  activesupport (3.2.1) lib/active_support/callbacks.rb:405:in `_run__175985215__call__75588052__callbacks'
+  activesupport (3.2.1) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.1) lib/active_support/callbacks.rb:385:in `_run_call_callbacks'
+  activesupport (3.2.1) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/reloader.rb:65:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/remote_ip.rb:31:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:16:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.1) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.1) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.1) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/static.rb:53:in `call'
+  railties (3.2.1) lib/rails/engine.rb:479:in `call'
+  railties (3.2.1) lib/rails/application.rb:220:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.1) lib/rails/rack/log_tailer.rb:14:in `call'
+  rack (1.4.1) lib/rack/handler/webrick.rb:59:in `service'
+  /home/david/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/webrick/httpserver.rb:138:in `service'
+  /home/david/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/webrick/httpserver.rb:94:in `run'
+  /home/david/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/webrick/server.rb:191:in `block in start_thread'
+
+
+  Rendered /home/david/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.5ms)
+  Rendered /home/david/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (55.4ms)
+  Rendered /home/david/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (463.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-31 20:11:40 +0300
+
+Mysql2::Error (Access denied for user 'root'@'localhost' (using password: YES)):
+  mysql2 (0.3.11) lib/mysql2/client.rb:44:in `connect'
+  mysql2 (0.3.11) lib/mysql2/client.rb:44:in `initialize'
+  activerecord (3.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:16:in `new'
+  activerecord (3.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:16:in `mysql2_connection'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:277:in `new_connection'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:287:in `checkout_new_connection'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:235:in `block (2 levels) in checkout'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:230:in `loop'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:230:in `block in checkout'
+  /home/david/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/monitor.rb:211:in `mon_synchronize'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:229:in `checkout'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:95:in `connection'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:374:in `retrieve_connection'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_specification.rb:168:in `retrieve_connection'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_specification.rb:142:in `connection'
+  activerecord (3.2.1) lib/active_record/query_cache.rb:67:in `rescue in call'
+  activerecord (3.2.1) lib/active_record/query_cache.rb:61:in `call'
+  activerecord (3.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:443:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+  activesupport (3.2.1) lib/active_support/callbacks.rb:405:in `_run__994824121__call__144997463__callbacks'
+  activesupport (3.2.1) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.1) lib/active_support/callbacks.rb:385:in `_run_call_callbacks'
+  activesupport (3.2.1) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/reloader.rb:65:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/remote_ip.rb:31:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:16:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.1) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.1) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.1) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.1) lib/action_dispatch/middleware/static.rb:53:in `call'
+  railties (3.2.1) lib/rails/engine.rb:479:in `call'
+  railties (3.2.1) lib/rails/application.rb:220:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.1) lib/rails/rack/log_tailer.rb:14:in `call'
+  rack (1.4.1) lib/rack/handler/webrick.rb:59:in `service'
+  /home/david/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/webrick/httpserver.rb:138:in `service'
+  /home/david/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/webrick/httpserver.rb:94:in `run'
+  /home/david/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/webrick/server.rb:191:in `block in start_thread'
+
+
+  Rendered /home/david/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (6.9ms)
+  Rendered /home/david/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (28.1ms)
+  Rendered /home/david/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (165.1ms)

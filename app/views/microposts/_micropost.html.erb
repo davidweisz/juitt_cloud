@@ -7,10 +7,12 @@
     </span>
 	<br />
 	<ol> 
-		<% @data = JSON.parse(micropost.data_json) %>
+		<% @data = {"Title"=>"Download", "Plot"=>"No details available", "Year" => "-", "Genre"=>"-","imdbRating"=>"0"} %>
+                <% @data = ActiveSupport::JSON.decode(micropost.data_json) unless micropost.data_json.nil? || micropost.data_json.empty? %>
+
 		<li class="stbody">
 		<div class="stimg">
-			<img style="width:125px;height:185px;" src=<%= micropost.poster_src %> />
+			<%= image_tag micropost.poster_src , :size => "125x186" %>
 		</div> 
 		<div class="sttext">
 			<a href=<%= micropost.magnet_link %>><%= @data['Title'] %></a>
