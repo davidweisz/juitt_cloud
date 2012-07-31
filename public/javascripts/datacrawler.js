@@ -15,32 +15,6 @@ function loadContent(url) {
 	isIMDB = false;
 	
 	try {
-		// Create the request object
-		//ajaxRequest = new XMLHttpRequest(); 
-	//
-		// Register event handler
-	//	ajaxRequest.onreadystatechange = function stateChange(){
-	//		if (ajaxRequest.readyState==4 && ajaxRequest.status==200){
-	//				var hidden_div = document.getElementById("hidden_div");
-	//				hidden_div.style.visibility = "none";
-	//				hidden_div.innerHTML = ajaxRequest.responseText;
-	//				
-	//				// We now process the page
-	//				processPage(url);
-	//			
-	//				hidden_div.innerHTML = "";
-	//		}	
-	//	};
-	//
-	//	// Set request parameters
-	//	if (url.indexOf("?") == -1) {
-	//		ajaxRequest.open( 'GET', url+"?tt="+Math.random(), true ); 
-	//	} else {
-	//		ajaxRequest.open( 'GET', url+"&tt="+Math.random(), true ); 
-	//	}
-	//
-	//	// Execute it 
-	//	ajaxRequest.send();
 		var service_url = "http://mysterious-hamlet-9529.herokuapp.com/ask/withurl.json?url="; 
 		$.getJSON(service_url + url + "&callback=?", null, function () {});
 	} 
@@ -63,16 +37,6 @@ function parseContent(data) {
 	} catch ( exception ) {
 		alert( 'Parse Error' + exception);
 	}
-}
-
-// This function checks if a string is of type json
-function isJsonString(str) {
-	try {
-		JSON.parse(str);
-	} catch (e) {
-		return false;
-	}
-	return true;
 }
 
 function processPage() {	
@@ -109,8 +73,7 @@ function processPage() {
 			
 			// Add data json to input field in the form for db post
 			document.getElementById('micropost_data_json').value = JSON.stringify(movie_json);
-		}
-		
+		}		
 	}
 		
 	// Search for posters in the website
@@ -121,6 +84,24 @@ function processPage() {
 		}
 	});
 	
+	if (movie_json != null) {
+		try {
+                        var service_url = "http://mysterious-hamlet-9529.herokuapp.com/ask/withurl.json?movie=";
+                        var url_address = "http://api.themoviedb.org/2.1/Movie.getImages/en/json/d450ee190cd0abb5c1e6ff021e9206af/";
+                        $.ajax({
+                                url: service_url + url_address + movie_json.imdbID + "&call=parseJSONdbData",
+                                dataType: 'jsonp',
+                                jsonpCallback: 'parseJSONdbData',
+                                success: function(dataWeGotViaJsonp){
+                                        console.log("success");
+                                }
+                        });
+
+
+                } catch (exception){
+                }
+	}
+
 	// Give the user the ability to show the image to post
 	if (image_counter > 1) {
 		$('#choose_picture_div').show();			
@@ -131,22 +112,14 @@ function processPage() {
 	updateCounter();
 }
 
-function getPosterFromMovieDb(movie_code) {
-	var url = "http://api.themoviedb.org/2.1/Movie.getImages/en/json/d450ee190cd0abb5c1e6ff021e9206af/";
-	
-	// Send Request       
-	var http = new XMLHttpRequest();        
-        http.open("GET", url + movie_code, false);
-        http.send(null);
-
-        // Response to JSON
-        var dbData = http.responseText;
-	var json = dbData[0];
-
-	if (isJsonString(json)) {
-		json = JSON.parse(json);
-	}
-
+		
+function parseJSONdbData(data) {
+	try {
+		var posters = data.posters;
+		var poster = posters[2].image.url;
+		images_array.unshift(poster);
+		images_counter += 1;
+	} catch (exception) {}
 }
 
 // Get the IMDB address index if appears
@@ -195,7 +168,7 @@ function previousImage() {
 }
 
 function nextImage() {
-	if (image_counter > 0 && current_image < (image_counter - 1)) {
+	if (image_counter > 0 && current_image < image_counter) {
 		current_image += 1;
 		updateImageAndSave();
 		updateCounter();
@@ -212,7 +185,7 @@ function updateImageAndSave() {
 
 function updateCounter() {
 	// Add counter result
-	document.getElementById("image_counter").innerHTML = (current_image + 1) + " of " + image_counter;
+	document.getElementById("image_counter").innerHTML = (current_image + 1) + " of " + (image_counter + 1);
 }
 
 function addMovieData(json) {
