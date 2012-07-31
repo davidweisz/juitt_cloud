@@ -77,6 +77,9 @@ function isJsonString(str) {
 
 function processPage() {	
 	$('#data_div').show();
+
+	// hide loader image
+	$('#img_loader').hide();
 	
 	// find the magnetic link
 	$('#hidden_div').find('a[href^="magnet:"]').each(function() {
@@ -99,36 +102,51 @@ function processPage() {
 		
 		// wait 100 milisecs
 		setTimeout(function() {
-        }, 100);
+        	}, 100);
 		
-		// Get the image poster from the imdb json
+		// Add imdb json to input for db save
 		if (movie_json != null) {
-			images_array.push(movie_json.Poster);
-			image_counter += 1;
 			
 			// Add data json to input field in the form for db post
 			document.getElementById('micropost_data_json').value = JSON.stringify(movie_json);
 		}
 		
-	} else { // No imdb link on the website
+	}
 		
-		// Search for posters in the website
-		$('#hidden_div').find('img').each(function() {
-			if (this.src.indexOf("http:") != -1) {
-				images_array.push(this.src);
-				image_counter += 1;
-			}
-		});
-		
-		// Give the user the ability to show the image to post
-		if (image_counter > 1) {
-			$('#choose_picture_div').show();			
+	// Search for posters in the website
+	$('#hidden_div').find('img').each(function() {
+		if (this.src.indexOf("http:") != -1) {
+			images_array.push(this.src);
+			image_counter += 1;
 		}
+	});
+	
+	// Give the user the ability to show the image to post
+	if (image_counter > 1) {
+		$('#choose_picture_div').show();			
 	}
 	
 	// Add image to document
 	updateImageAndSave();
 	updateCounter();
+}
+
+function getPosterFromMovieDb(movie_code) {
+	var url = "http://api.themoviedb.org/2.1/Movie.getImages/en/json/d450ee190cd0abb5c1e6ff021e9206af/";
+	
+	// Send Request       
+	var http = new XMLHttpRequest();        
+        http.open("GET", url + movie_code, false);
+        http.send(null);
+
+        // Response to JSON
+        var dbData = http.responseText;
+	var json = dbData[0];
+
+	if (isJsonString(json)) {
+		json = JSON.parse(json);
+	}
+
 }
 
 // Get the IMDB address index if appears
@@ -226,7 +244,7 @@ function addMovieData(json) {
 }
 
 function showLoaderImage() {
-	document.img01.src = "images/ajax-loader.gif";	
+	document.loader.src = "images/ajax-loader.gif";	
 }
 
 $(document).ready(function(){
