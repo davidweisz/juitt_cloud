@@ -202,6 +202,11 @@ div.field, div.actions {
   list-style: square;
 }
 
+#choose_picture_div {
+  font-size: 100%;
+  color:grey;
+}
+
 /* All users view styling */
 ul.users {
   margin-top: 1em;
