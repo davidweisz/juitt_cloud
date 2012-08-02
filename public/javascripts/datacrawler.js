@@ -39,7 +39,12 @@ function parseContent(data) {
 	}
 }
 
-function processPage() {	
+function processPage() {
+
+	// Hide the download link
+	$('#download_link').hide();
+
+	// Show all the data div	
 	$('#data_div').show();
 
 	// hide loader image
@@ -74,51 +79,65 @@ function processPage() {
 			// Add data json to input field in the form for db post
 			document.getElementById('micropost_data_json').value = JSON.stringify(movie_json);
 		}		
+	} else {
+		//Show the download link
+		$('#download_link').show();
 	}
-		
-	// Search for posters in the website
-	$('#hidden_div').find('img').each(function() {
-		if (this.src.indexOf("http:") != -1) {
-			images_array.push(this.src);
-			image_counter += 1;
-		}
-	});
+
 	
 	if (movie_json != null) {
 		try {
-                        var service_url = "http://mysterious-hamlet-9529.herokuapp.com/ask/withurl.json?movie=";
+                        //var service_url = "http://mysterious-hamlet-9529.herokuapp.com/ask/withurl.json?movie=";
                         var url_address = "http://api.themoviedb.org/2.1/Movie.getImages/en/json/d450ee190cd0abb5c1e6ff021e9206af/";
                         $.ajax({
-                                url: service_url + url_address + movie_json.imdbID + "&call=parseJSONdbData",
-                                dataType: 'jsonp',
+                               // url: service_url + url_address + movie_json.imdbID + "&call=parseJSONdbData",
+                                url: url_address + movie_json.imdbID,
+				dataType: 'jsonp',
                                 jsonpCallback: 'parseJSONdbData',
                                 success: function(dataWeGotViaJsonp){
-                                        console.log("success");
+                                        //console.log("success");
                                 }
                         });
 
 
-                } catch (exception){
+                } catch (exception) {
+			console.log('Error: trying to get data');
                 }
 	}
 
+        // Search for posters in the website
+        $('#hidden_div').find('img').each(function() {
+            	if (this.src.indexOf("http:") != -1 && !isBlackList(this.src)) {
+                      	images_array.push(this.src);
+                      	image_counter += 1;
+			//DEBUG****************************************************
+			console.log(this.src);
+			console.log(image_counter);
+               	}
+       	});
+
+
 	// Give the user the ability to show the image to post
-	if (image_counter > 1) {
+	if (image_counter > 0) {
 		$('#choose_picture_div').show();			
 	}
 	
 	// Add image to document
-	updateImageAndSave();
+	setTimeout(function () {updateImageAndSave();},2000);
 	updateCounter();
 }
 
 		
 function parseJSONdbData(data) {
 	try {
+		data = data[0];
 		var posters = data.posters;
 		var poster = posters[2].image.url;
 		images_array.unshift(poster);
 		images_counter += 1;
+ 
+		//updateImageAndSave();
+		//updateCounter();
 	} catch (exception) {}
 }
 
@@ -168,7 +187,7 @@ function previousImage() {
 }
 
 function nextImage() {
-	if (image_counter > 0 && current_image < image_counter) {
+	if (image_counter > 0 && current_image < (image_counter-1)) {
 		current_image += 1;
 		updateImageAndSave();
 		updateCounter();
@@ -185,7 +204,7 @@ function updateImageAndSave() {
 
 function updateCounter() {
 	// Add counter result
-	document.getElementById("image_counter").innerHTML = (current_image + 1) + " of " + (image_counter + 1);
+	document.getElementById("image_counter").innerHTML = (current_image + 1) + " of " + image_counter;
 }
 
 function addMovieData(json) {
@@ -218,6 +237,19 @@ function addMovieData(json) {
 
 function showLoaderImage() {
 	document.loader.src = "images/ajax-loader.gif";	
+}
+
+// Returns true if the url is blacklisted
+function isBlackList(url) {
+	var black_list = ['http://image.bayimg.com/', 'http://ia.media-imdb.com/'];
+
+	for (i in black_list) {
+		if (url.search(black_list[i]) != -1) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 $(document).ready(function(){
