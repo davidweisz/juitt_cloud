@@ -10,9 +10,6 @@
 	<div class="actions">
     <%= f.submit "Submit" %>
   	</div>
-	<div id="img_loader">
-		<img name="loader" src="" />
-	</div>
 	<div id="data_div">
 		<ol> 
 			<li class="stbody">
@@ -35,6 +32,6 @@
 	</div>
   </div>
 <% end %>
-<div id="hidden_div" style="visibility:hidden;"></div>
+<div id="hidden_div"></div>
 <br />
 <br />
