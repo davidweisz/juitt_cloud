@@ -20,6 +20,11 @@
 	<h1>Welcome to Juitt.</h1>
 	<p >
 		Get the best movies according to your taste from the people you believe in.
+	</p>
+
+	<div style='margin-left:auto;margin-right:auto;text-align:center;'>
+		<iframe width="560" height="315" src="http://www.youtube.com/embed/7wEnFtx5d48" frameborder="0" align='middle' ></iframe>
+	</div>
 		<h4>How it works</h4>
 		<ol>
 			<li>Create your free account</li>
@@ -27,9 +32,11 @@
 			<li>Follow the people that have your same taste in movies</li>
 			<li>When you download a good movie, you can post the link on Juitt, and let your followers enjoy too</li>
 		</ol>
-	</p>
 </div>
-<h4>New to Juitt?
-<%= link_to "Sign up now!", signup_path, :class => "signup_button round" %>
-</h4>
+<br />
+<center>
+	<h4>New to Juitt?
+	<%= link_to "Sign up for Juitt", signup_path, :class => "signup_button round" %> or <%= link_to "Sign in", signin_path %>
+	</h4>
+</center>
 <% end %>
