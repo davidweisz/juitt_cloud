@@ -26,6 +26,13 @@ section h1 {
   font-size: 200%;
 }
 
+.header_logo {
+	font-size:500%;
+	font-family:'Fugaz One', cursive;
+	color: white;
+	padding-left:10px;
+}
+
 /* Links */
 
 a {
