@@ -27449,3 +27449,17 @@ Processing by PagesController#home as HTML
   Rendered layouts/_header.html.erb (21.1ms)
   Rendered layouts/_footer.html.erb (14.4ms)
 Completed 200 OK in 359ms (Views: 334.4ms | ActiveRecord: 14.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-08-04 16:03:52 +0300
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (2.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  Rendered pages/home.html.erb within layouts/application (20.9ms)
+  Rendered layouts/_stylesheets.html.erb (17.8ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  Rendered layouts/_header.html.erb (11.1ms)
+  Rendered layouts/_footer.html.erb (8.7ms)
+Completed 200 OK in 1965ms (Views: 455.8ms | ActiveRecord: 1199.2ms)
