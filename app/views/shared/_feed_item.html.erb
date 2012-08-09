@@ -17,7 +17,7 @@
 		<li class="stbody">
 		<div class="stimg">
 			<!--<img style="width:125px;height:185px;" src=\'<%= feed_item.poster_src  %>\' />-->
-		<%= image_tag feed_item.poster_src, :size => "125x186" %>
+		<a href=<%= feed_item.magnet_link %>><%= image_tag feed_item.poster_src, :size => "125x186" %></a>
 		</div> 
 		<div class="sttext">
 			<a href=<%= feed_item.magnet_link %>><%= @data['Title'] %></a>

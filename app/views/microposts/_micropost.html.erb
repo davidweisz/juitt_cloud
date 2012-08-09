@@ -12,7 +12,7 @@
 
 		<li class="stbody">
 		<div class="stimg">
-			<%= image_tag micropost.poster_src , :size => "125x186" %>
+			<a href=<%= micropost.magnet_link %>><%= image_tag micropost.poster_src , :size => "125x186" %></a>
 		</div> 
 		<div class="sttext">
 			<a href=<%= micropost.magnet_link %>><%= @data['Title'] %></a>
