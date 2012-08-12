@@ -28183,3 +28183,28 @@ Processing by PagesController#home as HTML
   Rendered layouts/_header.html.erb (1.7ms)
   Rendered layouts/_footer.html.erb (0.9ms)
 Completed 200 OK in 35ms (Views: 29.9ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-08-12 12:09:26 +0300
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (117.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  Rendered pages/home.html.erb within layouts/application (50.4ms)
+  Rendered layouts/_stylesheets.html.erb (18.2ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  Rendered layouts/_header.html.erb (5.1ms)
+  Rendered layouts/_footer.html.erb (4.3ms)
+Completed 200 OK in 1499ms (Views: 661.7ms | ActiveRecord: 606.6ms)
+
+
+Started GET "/help" for 127.0.0.1 at 2012-08-12 13:13:36 +0300
+Processing by PagesController#help as HTML
+  Rendered pages/help.html.erb within layouts/application (1.6ms)
+  Rendered layouts/_stylesheets.html.erb (70.6ms)
+  [1m[35mUser Load (107.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  Rendered layouts/_header.html.erb (125.3ms)
+  Rendered layouts/_footer.html.erb (2.6ms)
+Completed 200 OK in 473ms (Views: 364.6ms | ActiveRecord: 107.5ms)
